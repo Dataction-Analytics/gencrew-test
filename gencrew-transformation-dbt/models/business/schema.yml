@@ -1,0 +1,92 @@
+version: 2
+models:
+  - name: business_channels
+    description: "Business layer — cleansed, standardised, deduplicated channels."
+    columns:
+      - name: channel_name
+        tests:
+          - not_null
+  - name: business_daily_hotel_performance
+    description: "Business layer — cleansed, standardised, deduplicated daily_hotel_performance."
+    columns:
+      - name: performance_id
+        tests:
+          - not_null
+  - name: business_folio_charges
+    description: "Business layer — cleansed, standardised, deduplicated folio_charges."
+    columns:
+      - name: revenue_category
+        tests:
+          - not_null
+  - name: business_guests
+    description: "Business layer — cleansed, standardised, deduplicated guests."
+    columns:
+      - name: guest_id
+        tests:
+          - not_null
+  - name: business_hotels
+    description: "Business layer — cleansed, standardised, deduplicated hotels."
+    columns:
+      - name: hotel_id
+        tests:
+          - not_null
+  - name: business_housekeeping_tasks
+    description: "Business layer — cleansed, standardised, deduplicated housekeeping_tasks."
+    columns:
+      - name: minutes_taken
+        tests:
+          - not_null
+  - name: business_payments
+    description: "Business layer — cleansed, standardised, deduplicated payments."
+    columns:
+      - name: card_last_four
+        tests:
+          - not_null
+  - name: business_rate_plans
+    description: "Business layer — cleansed, standardised, deduplicated rate_plans."
+    columns:
+      - name: rate_plan_id
+        tests:
+          - not_null
+  - name: business_reservation_rooms
+    description: "Business layer — cleansed, standardised, deduplicated reservation_rooms."
+    columns:
+      - name: reservation_room_id
+        tests:
+          - not_null
+  - name: business_reservations
+    description: "Business layer — cleansed, standardised, deduplicated reservations."
+    columns:
+      - name: booking_id
+        tests:
+          - not_null
+  - name: business_reviews
+    description: "Business layer — cleansed, standardised, deduplicated reviews."
+    columns:
+      - name: guest_rating
+        tests:
+          - not_null
+  - name: business_room_inventory_daily
+    description: "Business layer — cleansed, standardised, deduplicated room_inventory_daily."
+    columns:
+      - name: inventory_id
+        tests:
+          - not_null
+  - name: business_room_types
+    description: "Business layer — cleansed, standardised, deduplicated room_types."
+    columns:
+      - name: room_type_code
+        tests:
+          - not_null
+  - name: business_rooms
+    description: "Business layer — cleansed, standardised, deduplicated rooms."
+    columns:
+      - name: room_id
+        tests:
+          - not_null
+  - name: business_stay_nights
+    description: "Business layer — cleansed, standardised, deduplicated stay_nights."
+    columns:
+      - name: stay_night_id
+        tests:
+          - not_null

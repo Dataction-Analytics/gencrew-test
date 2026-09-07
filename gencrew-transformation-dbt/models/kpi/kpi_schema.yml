@@ -1,0 +1,20 @@
+version: 2
+models:
+  - name: kpi_total_bookings
+    description: "Bookings that were not cancelled, per month"
+  - name: kpi_total_revenue
+    description: "All folio revenue (room + ancillary), per month"
+  - name: kpi_occupancy
+    description: "Room nights sold as a share of room nights available, per hotel"
+  - name: kpi_cancellation
+    description: "Share of bookings cancelled, per month"
+  - name: kpi_average_stay
+    description: "Mean nights per realised stay, per hotel"
+  - name: kpi_repeat_guest
+    description: "Guests who had stayed before, as a share of guests who stayed"
+  - name: kpi_no_show
+    description: "Share of bookings that never arrived"
+  - name: kpi_revenue_by_channel
+    description: "Booking value attributed to each channel"
+  - name: kpi_rooms_unsold
+    description: "Unsold capacity, per hotel"

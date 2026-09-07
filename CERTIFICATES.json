@@ -1,0 +1,41 @@
+{
+  "tasks": [
+    {
+      "task": 1,
+      "name": "Transformation SQL",
+      "agent": "SQL Transformation Agent",
+      "status": "certified",
+      "detail": "transformation folded into model loads (sql/model)"
+    },
+    {
+      "task": 2,
+      "name": "Fact/Dim reporting layer",
+      "agent": "SQL Expert Agent",
+      "status": "certified",
+      "detail": {
+        "certified": 15
+      }
+    }
+  ],
+  "certificates": {
+    "model": {
+      "certified": 15
+    }
+  },
+  "agent_reviews": [
+    {
+      "task": 1,
+      "name": "Transformation SQL",
+      "reviewer": "The transformation SQL files have been successfully written as per the step's scope. The row counts will be certified in the subsequent modelling step."
+    },
+    {
+      "task": 2,
+      "name": "Fact/Dim reporting layer",
+      "reviewer": "The step appears sound with 15 tables certified as expected. No anomalies detected."
+    },
+    {
+      "stage": "security",
+      "secops": "The delivery appears secure based on the scan results and the restricted SQL operations. No anomalous or risky elements are detected."
+    }
+  ]
+}

@@ -19,13 +19,19 @@ The first `dbt build` is a full load. Every later run:
 
 | Table | Watermark column | Watermark kind | Natural key | History |
 |---|---|---|---|---|
+| `batch_load_audit` | load_started_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `audit_id` | yes |
+| `cancellations` | cancelled_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `cancellation_id` | yes |
 | `channels` | ingested_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `channel_id` | yes |
 | `daily_hotel_performance` | ingested_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `performance_id` | yes |
 | `folio_charges` | ingested_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `charge_id` | yes |
 | `guests` | created_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `guest_id` | yes |
 | `hotels` | ingested_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `hotel_id` | yes |
 | `housekeeping_tasks` | ingested_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `task_id` | yes |
+| `loyalty_members` | ingested_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `loyalty_id` | yes |
+| `market_segments` | ingested_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `segment_id` | yes |
+| `ota_feed_raw` | received_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `feed_row_id` | yes |
 | `payments` | paid_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `payment_id` | yes |
+| `pms_extract_log` | extracted_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `extract_id` | yes |
 | `rate_plans` | ingested_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `rate_plan_id` | yes |
 | `reservation_rooms` | ingested_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `reservation_room_id` | yes |
 | `reservations` | booked_at | **event time** — edits to past rows are not picked up; add an updated_at column to the source to capture them | `reservation_id` | yes |

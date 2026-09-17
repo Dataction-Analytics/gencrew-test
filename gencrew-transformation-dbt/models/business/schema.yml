@@ -1,5 +1,17 @@
 version: 2
 models:
+  - name: business_batch_load_audit
+    description: "Business layer — cleansed, standardised, deduplicated batch_load_audit."
+    columns:
+      - name: audit_id
+        tests:
+          - not_null
+  - name: business_cancellations
+    description: "Business layer — cleansed, standardised, deduplicated cancellations."
+    columns:
+      - name: cancellation_id
+        tests:
+          - not_null
   - name: business_channels
     description: "Business layer — cleansed, standardised, deduplicated channels."
     columns:
@@ -15,7 +27,7 @@ models:
   - name: business_folio_charges
     description: "Business layer — cleansed, standardised, deduplicated folio_charges."
     columns:
-      - name: revenue_category
+      - name: charge_type
         tests:
           - not_null
   - name: business_guests
@@ -33,13 +45,37 @@ models:
   - name: business_housekeeping_tasks
     description: "Business layer — cleansed, standardised, deduplicated housekeeping_tasks."
     columns:
-      - name: minutes_taken
+      - name: task_id
+        tests:
+          - not_null
+  - name: business_loyalty_members
+    description: "Business layer — cleansed, standardised, deduplicated loyalty_members."
+    columns:
+      - name: tier
+        tests:
+          - not_null
+  - name: business_market_segments
+    description: "Business layer — cleansed, standardised, deduplicated market_segments."
+    columns:
+      - name: segment_id
+        tests:
+          - not_null
+  - name: business_ota_feed_raw
+    description: "Business layer — cleansed, standardised, deduplicated ota_feed_raw."
+    columns:
+      - name: feed_row_id
         tests:
           - not_null
   - name: business_payments
     description: "Business layer — cleansed, standardised, deduplicated payments."
     columns:
-      - name: card_last_four
+      - name: card_last4
+        tests:
+          - not_null
+  - name: business_pms_extract_log
+    description: "Business layer — cleansed, standardised, deduplicated pms_extract_log."
+    columns:
+      - name: extract_id
         tests:
           - not_null
   - name: business_rate_plans
@@ -57,13 +93,13 @@ models:
   - name: business_reservations
     description: "Business layer — cleansed, standardised, deduplicated reservations."
     columns:
-      - name: booking_id
+      - name: reservation_id
         tests:
           - not_null
   - name: business_reviews
     description: "Business layer — cleansed, standardised, deduplicated reviews."
     columns:
-      - name: guest_rating
+      - name: rating
         tests:
           - not_null
   - name: business_room_inventory_daily

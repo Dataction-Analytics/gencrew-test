@@ -1,12 +1,14 @@
 -- Kpi: Total Revenue
--- All folio revenue (room + ancillary), per month
--- numerator   : sum(charge_amount)
+-- Declared on the mapping sheet.
+-- numerator   : SUM(charge_amount)
 -- denominator : (none)
--- grain       : date_trunc('month', charge_date)
+-- grain       : hotel_id, charge_type, DATE_TRUNC('month', charge_date)
 -- source      : mapping sheet
 
 select
-        date_trunc('month', f.charge_date) as charge_date_month,
-        sum(f.charge_amount) as total_revenue
+        f.hotel_id as hotel_id,
+        f.charge_type as charge_type,
+        DATE_TRUNC('month', f.charge_date) as charge_date_month,
+        SUM(f.charge_amount) as total_revenue
 from {{ ref('fact_folio_charges') }} as f
-    group by 1
+    group by 1, 2, 3

@@ -1,4 +1,4 @@
--- Gold fact: fact_payments. Grain: one row per payments record.
+-- Gold fact: fact_payments. Grain: One row per payment transaction.
 -- Incremental on paid_at using MERGE.
 -- Never delete-and-reload: the house rule forbids DELETE and TRUNCATE.
 with s as (
@@ -11,10 +11,12 @@ select
         {{ dbt_utils.generate_surrogate_key(['s.payment_id']) }} as fact_payments_key,
         s.payment_amount,
         s.paid_at,
-        s.ingested_at,
         s.method,
+        s.card_last4,
         s.status,
-        s.card_last_four
+        s.source_system,
+        s.ingested_at,
+        s.reservation_id
 from s
 
     {% if is_incremental() %}

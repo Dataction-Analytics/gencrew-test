@@ -1,4 +1,4 @@
--- Gold fact: fact_daily_hotel_performance. Grain: one row per daily_hotel_performance record.
+-- Gold fact: fact_daily_hotel_performance. Grain: One row per hotel per business day.
 -- Incremental on business_date using MERGE.
 -- Never delete-and-reload: the house rule forbids DELETE and TRUNCATE.
 with s as (
@@ -13,14 +13,16 @@ select
         s.rooms_available,
         s.rooms_sold,
         s.rooms_out_of_order,
-        s.arrivals,
-        s.departures,
+        s.room_revenue,
         s.other_revenue,
         s.business_date,
+        s.arrivals,
+        s.departures,
+        s.source_system,
         s.ingested_at,
-        s.performance_id,
-        s.hotel_id,
-        s.rooms_unsold
+        s.batch_id,
+        s.rooms_unsold,
+        s.hotel_id
 from s
     left join {{ ref('dim_hotels') }} as dim_hotels
         on s.hotel_id = dim_hotels.dim_hotels_nk

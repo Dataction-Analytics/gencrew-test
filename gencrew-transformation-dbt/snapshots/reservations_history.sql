@@ -2,7 +2,7 @@
 {{
     config(
       target_schema='history',
-      unique_key='booking_id',
+      unique_key='reservation_id',
       strategy='check',
       check_cols='all',
       invalidate_hard_deletes=False

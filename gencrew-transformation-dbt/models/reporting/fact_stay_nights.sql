@@ -1,4 +1,4 @@
--- Gold fact: fact_stay_nights. Grain: one row per stay_nights record.
+-- Gold fact: fact_stay_nights. Grain: One row per room per night of stay.
 -- Incremental on stay_date using MERGE.
 -- Never delete-and-reload: the house rule forbids DELETE and TRUNCATE.
 with s as (
@@ -12,11 +12,13 @@ select
         coalesce(dim_hotels.dim_hotels_key, '-1') as dim_hotels_key,
         coalesce(dim_rooms.dim_rooms_key, '-1') as dim_rooms_key,
         coalesce(dim_room_types.dim_room_types_key, '-1') as dim_room_types_key,
-        s.is_occupied,
         s.room_revenue,
         s.stay_date,
+        s.is_occupied,
+        s.source_system,
         s.ingested_at,
-        s.stay_night_id
+        s.reservation_id,
+        s.hotel_id
 from s
     left join {{ ref('dim_hotels') }} as dim_hotels
         on s.hotel_id = dim_hotels.dim_hotels_nk

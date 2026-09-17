@@ -1,20 +1,26 @@
 version: 2
 models:
   - name: kpi_total_bookings
-    description: "Bookings that were not cancelled, per month"
+    description: "Total Bookings"
   - name: kpi_total_revenue
-    description: "All folio revenue (room + ancillary), per month"
-  - name: kpi_occupancy
-    description: "Room nights sold as a share of room nights available, per hotel"
-  - name: kpi_cancellation
-    description: "Share of bookings cancelled, per month"
+    description: "Total Revenue"
+  - name: kpi_occupancy_pct
+    description: "Occupancy %"
+  - name: kpi_adr__average_daily_rate_
+    description: "ADR (Average Daily Rate)"
+  - name: kpi_revpar__revenue_per_available_room_
+    description: "RevPAR (Revenue Per Available Room)"
+  - name: kpi_cancellation_pct
+    description: "Cancellation %"
   - name: kpi_average_stay
-    description: "Mean nights per realised stay, per hotel"
-  - name: kpi_repeat_guest
-    description: "Guests who had stayed before, as a share of guests who stayed"
-  - name: kpi_no_show
-    description: "Share of bookings that never arrived"
+    description: "Average Stay"
+  - name: kpi_repeat_guest_pct
+    description: "Repeat Guest %"
+  - name: kpi_no_show_pct
+    description: "No Show %"
   - name: kpi_revenue_by_channel
-    description: "Booking value attributed to each channel"
+    description: "Revenue by Channel"
   - name: kpi_rooms_unsold
-    description: "Unsold capacity, per hotel"
+    description: "Rooms Unsold"
+  - name: kpi_average_review_score
+    description: "Average Review Score"

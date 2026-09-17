@@ -19,11 +19,11 @@ DROP — every statement passes the platform guard before execution.
 | `reporting` | `HOTEL.GOLD_HOTEL` |
 | `kpi` | `HOTEL.GOLD_HOTEL` |
 
-- **Cleansed** — 15 models: dedupe, null handling, formats, value maps.
+- **Cleansed** — 21 models: dedupe, null handling, formats, value maps.
 - **Business** — 0 models: renames, derived columns and the sheet's business rules.
 - **History** — SCD Type 2 snapshots: a change closes the old version and opens a new one; nothing is removed.
-- **Reporting** — star schema: 6 dimensions + 9 facts, surrogate keys, Unknown members, point-in-time joins.
-- **KPI** — 9 models, one per declared KPI at its own grain.
+- **Reporting** — star schema: 8 dimensions + 6 facts, surrogate keys, Unknown members, point-in-time joins.
+- **KPI** — 12 models, one per declared KPI at its own grain.
 
 ## 3. How to run it
 
@@ -40,7 +40,7 @@ dbt snapshot                # SCD Type 2 history
 ## 4. How loads behave
 
 The first run is a full build. Every later run is **incremental**: models read
-only source rows past the last high-water mark (15 of 15 tables
+only source rows past the last high-water mark (21 of 21 tables
 have a measured watermark column; the rest are re-read in full and still MERGE
 by natural key — correct, just not cheap). Dimensions keep full history
 (SCD Type 2): `is_current` marks the active version, closed versions keep their
@@ -53,22 +53,22 @@ Details per table: `gencrew-test-dbt/INCREMENTAL.md`.
 
 - **kpi_total_bookings** — emitted as a model
 - **kpi_total_revenue** — emitted as a model
-- **kpi_occupancy** — emitted as a model
-- **kpi_cancellation** — emitted as a model
+- **kpi_occupancy_pct** — emitted as a model
+- **kpi_adr__average_daily_rate_** — emitted as a model
+- **kpi_revpar__revenue_per_available_room_** — emitted as a model
+- **kpi_cancellation_pct** — emitted as a model
 - **kpi_average_stay** — emitted as a model
-- **kpi_repeat_guest** — emitted as a model
-- **kpi_no_show** — emitted as a model
+- **kpi_repeat_guest_pct** — emitted as a model
+- **kpi_no_show_pct** — emitted as a model
 - **kpi_revenue_by_channel** — emitted as a model
 - **kpi_rooms_unsold** — emitted as a model
-- **ADR** — needs a human (see BUSINESS_RULES.md)
-- **RevPAR** — needs a human (see BUSINESS_RULES.md)
-- **Average Review Score** — needs a human (see BUSINESS_RULES.md)
+- **kpi_average_review_score** — emitted as a model
 
 Formulas and grains: `gencrew-test-dbt/KPI_CATALOG.md`.
 
 ## 6. Business rules
 
-100 of 112 mapping-sheet rules were
+13 of 13 mapping-sheet rules were
 applied automatically; the remainder are listed with reasons in
 `gencrew-test-dbt/BUSINESS_RULES.md` for a human to resolve.
 

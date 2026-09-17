@@ -6,15 +6,15 @@ reporting fact or a dimension it joins; otherwise it is listed here for a human.
 
 | KPI | Formula | Grain | Status | Model / reason |
 |---|---|---|---|---|
-| Total Bookings | `count(*)` | date_trunc('month', booked_at) | emitted | kpi_total_bookings |
-| Total Revenue | `sum(charge_amount)` | date_trunc('month', charge_date) | emitted | kpi_total_revenue |
-| Occupancy % | `sum(rooms_sold) ÷ sum(rooms_available)` | dim_hotels.hotel_name | emitted | kpi_occupancy |
-| ADR | `sum(room_revenue) ÷ sum(rooms_sold)` | date_trunc('month', business_date) | needs a human | numerator references 'room_revenue', which is not a column of fact_daily_hotel_performance or any dimension it joins |
-| RevPAR | `sum(room_revenue) ÷ sum(rooms_available)` | date_trunc('month', business_date) | needs a human | numerator references 'room_revenue', which is not a column of fact_daily_hotel_performance or any dimension it joins |
-| Cancellation % | `sum(is_cancelled) ÷ count(*)` | date_trunc('month', booked_at) | emitted | kpi_cancellation |
-| Average Stay | `avg(length_of_stay)` | dim_hotels.hotel_name | emitted | kpi_average_stay |
-| Repeat Guest % | `count(distinct case when dim_guests.dim_guests_key is not null and is_repeat_guest = 1 then dim_guests.dim_guests_key end) ÷ count(distinct dim_guests.dim_guests_key)` | date_trunc('month', booked_at) | emitted | kpi_repeat_guest |
-| No Show % | `sum(is_no_show) ÷ count(*)` | date_trunc('month', booked_at) | emitted | kpi_no_show |
-| Revenue by Channel | `sum(total_amount)` | dim_channels.channel_name | emitted | kpi_revenue_by_channel |
-| Rooms Unsold | `sum(rooms_unsold)` | dim_hotels.hotel_name | emitted | kpi_rooms_unsold |
-| Average Review Score | `avg(rating)` | dim_hotels.hotel_name | needs a human | numerator references 'rating', which is not a column of fact_reviews or any dimension it joins |
+| Total Bookings | `COUNT(DISTINCT reservation_id)` | hotel_id, channel_id, segment_id, DATE_TRUNC('month', booked_at) | emitted | kpi_total_bookings |
+| Total Revenue | `SUM(charge_amount)` | hotel_id, charge_type, DATE_TRUNC('month', charge_date) | emitted | kpi_total_revenue |
+| Occupancy % | `SUM(rooms_sold) ÷ SUM(rooms_available)` | hotel_id, DATE_TRUNC('month', business_date) | emitted | kpi_occupancy_pct |
+| ADR (Average Daily Rate) | `SUM(room_revenue) ÷ SUM(rooms_sold)` | hotel_id, DATE_TRUNC('month', business_date) | emitted | kpi_adr__average_daily_rate_ |
+| RevPAR (Revenue Per Available Room) | `SUM(room_revenue) ÷ SUM(rooms_available)` | hotel_id, DATE_TRUNC('month', business_date) | emitted | kpi_revpar__revenue_per_available_room_ |
+| Cancellation % | `COUNT(DISTINCT CASE WHEN status = 'CANCELLED' THEN reservation_id END) ÷ COUNT(DISTINCT reservation_id)` | hotel_id, DATE_TRUNC('month', booked_at) | emitted | kpi_cancellation_pct |
+| Average Stay | `AVG(nights)` | hotel_id, DATE_TRUNC('month', booked_at) | emitted | kpi_average_stay |
+| Repeat Guest % | `COUNT(DISTINCT CASE WHEN is_repeat_guest = 1 THEN reservation_id END) ÷ COUNT(DISTINCT reservation_id)` | hotel_id, DATE_TRUNC('month', booked_at) | emitted | kpi_repeat_guest_pct |
+| No Show % | `COUNT(DISTINCT CASE WHEN UPPER(REGEXP_REPLACE(status, '[^A-Z0-9]', '')) IN ('NS','NOSHOW') THEN reservation_id END) ÷ COUNT(DISTINCT reservation_id)` | hotel_id, DATE_TRUNC('month', booked_at) | emitted | kpi_no_show_pct |
+| Revenue by Channel | `SUM(total_amount)` | channel_id, DATE_TRUNC('month', booked_at) | emitted | kpi_revenue_by_channel |
+| Rooms Unsold | `SUM(rooms_available - rooms_sold)` | hotel_id, DATE_TRUNC('month', business_date) | emitted | kpi_rooms_unsold |
+| Average Review Score | `AVG(rating)` | hotel_id, DATE_TRUNC('month', submitted_at) | emitted | kpi_average_review_score |

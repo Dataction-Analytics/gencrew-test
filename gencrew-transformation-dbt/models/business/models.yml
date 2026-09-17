@@ -1,5 +1,21 @@
 version: 2
 models:
+  - name: business_batch_load_audit
+    config:
+      materialized: incremental
+      unique_key: audit_id
+      incremental_strategy: merge
+      on_schema_change: append_new_columns
+      quote_columns: true
+      transient: false
+  - name: business_cancellations
+    config:
+      materialized: incremental
+      unique_key: cancellation_id
+      incremental_strategy: merge
+      on_schema_change: append_new_columns
+      quote_columns: true
+      transient: false
   - name: business_channels
     config:
       materialized: incremental
@@ -48,10 +64,42 @@ models:
       on_schema_change: append_new_columns
       quote_columns: true
       transient: false
+  - name: business_loyalty_members
+    config:
+      materialized: incremental
+      unique_key: loyalty_id
+      incremental_strategy: merge
+      on_schema_change: append_new_columns
+      quote_columns: true
+      transient: false
+  - name: business_market_segments
+    config:
+      materialized: incremental
+      unique_key: segment_id
+      incremental_strategy: merge
+      on_schema_change: append_new_columns
+      quote_columns: true
+      transient: false
+  - name: business_ota_feed_raw
+    config:
+      materialized: incremental
+      unique_key: feed_row_id
+      incremental_strategy: merge
+      on_schema_change: append_new_columns
+      quote_columns: true
+      transient: false
   - name: business_payments
     config:
       materialized: incremental
       unique_key: payment_id
+      incremental_strategy: merge
+      on_schema_change: append_new_columns
+      quote_columns: true
+      transient: false
+  - name: business_pms_extract_log
+    config:
+      materialized: incremental
+      unique_key: extract_id
       incremental_strategy: merge
       on_schema_change: append_new_columns
       quote_columns: true

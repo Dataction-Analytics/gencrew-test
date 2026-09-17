@@ -10,9 +10,11 @@ with source as (
 
 select
         inventory_id,
+        hotel_id,
+        inventory_date,
         rooms_available,
         rooms_out_of_order,
-        inventory_date,
+        source_system,
         ingested_at,
-        hotel_id
+        batch_id
 from source

@@ -10,9 +10,11 @@ with source as (
 
 select
         reservation_room_id,
-        nightly_rate,
-        ingested_at,
+        reservation_id,
         room_id,
         room_type_id,
-        rate_plan_id
+        rate_plan_id,
+        source_system,
+        ingested_at,
+        nightly_rate
 from source

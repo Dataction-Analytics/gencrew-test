@@ -24,6 +24,22 @@ models:
       on_schema_change: append_new_columns
       quote_columns: true
       transient: false
+  - name: dim_loyalty_members
+    config:
+      materialized: incremental
+      unique_key: dim_loyalty_members_key
+      incremental_strategy: merge
+      on_schema_change: append_new_columns
+      quote_columns: true
+      transient: false
+  - name: dim_market_segments
+    config:
+      materialized: incremental
+      unique_key: dim_market_segments_key
+      incremental_strategy: merge
+      on_schema_change: append_new_columns
+      quote_columns: true
+      transient: false
   - name: dim_rate_plans
     config:
       materialized: incremental
@@ -62,24 +78,10 @@ models:
       incremental_strategy: merge
       quote_columns: true
       transient: false
-  - name: fact_housekeeping_tasks
-    config:
-      materialized: incremental
-      unique_key: fact_housekeeping_tasks_key
-      incremental_strategy: merge
-      quote_columns: true
-      transient: false
   - name: fact_payments
     config:
       materialized: incremental
       unique_key: fact_payments_key
-      incremental_strategy: merge
-      quote_columns: true
-      transient: false
-  - name: fact_reservation_rooms
-    config:
-      materialized: incremental
-      unique_key: fact_reservation_rooms_key
       incremental_strategy: merge
       quote_columns: true
       transient: false
@@ -94,13 +96,6 @@ models:
     config:
       materialized: incremental
       unique_key: fact_reviews_key
-      incremental_strategy: merge
-      quote_columns: true
-      transient: false
-  - name: fact_room_inventory_daily
-    config:
-      materialized: incremental
-      unique_key: fact_room_inventory_daily_key
       incremental_strategy: merge
       quote_columns: true
       transient: false

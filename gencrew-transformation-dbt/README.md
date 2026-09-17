@@ -7,8 +7,8 @@ sheet. Layers: `raw` → `business` → `reporting` → `kpi`.
 |---|---|---|
 | `raw` | view over landed data | source tables exactly as ingested |
 | `business` | table | cleansed, standardised, deduplicated, business rules applied |
-| `reporting` | table | star schema: 6 dimensions, 9 facts, surrogate keys, Unknown members |
-| `kpi` | table | 9 KPI models, one per declared KPI at its grain |
+| `reporting` | table | star schema: 8 dimensions, 6 facts, surrogate keys, Unknown members |
+| `kpi` | table | 12 KPI models, one per declared KPI at its grain |
 
 ```bash
 dbt deps      # installs dbt_utils (surrogate keys)

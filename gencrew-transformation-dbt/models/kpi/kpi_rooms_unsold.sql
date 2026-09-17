@@ -1,13 +1,13 @@
 -- Kpi: Rooms Unsold
--- Unsold capacity, per hotel
--- numerator   : sum(rooms_unsold)
+-- Declared on the mapping sheet.
+-- numerator   : SUM(rooms_available - rooms_sold)
 -- denominator : (none)
--- grain       : dim_hotels.hotel_name
+-- grain       : hotel_id, DATE_TRUNC('month', business_date)
 -- source      : mapping sheet
 
 select
-        dim_hotels.hotel_name as hotels_hotel_name,
-        sum(f.rooms_unsold) as rooms_unsold
+        f.hotel_id as hotel_id,
+        DATE_TRUNC('month', f.business_date) as business_date_month,
+        SUM(f.rooms_available - f.rooms_sold) as rooms_unsold
 from {{ ref('fact_daily_hotel_performance') }} as f
-    left join {{ ref('dim_hotels') }} as dim_hotels on f.dim_hotels_key = dim_hotels.dim_hotels_key
-    group by 1
+    group by 1, 2

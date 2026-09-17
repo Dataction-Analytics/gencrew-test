@@ -1,13 +1,16 @@
 -- Kpi: Total Bookings
--- Bookings that were not cancelled, per month
--- numerator   : count(*)
+-- Declared on the mapping sheet.
+-- numerator   : COUNT(DISTINCT reservation_id)
 -- denominator : (none)
--- grain       : date_trunc('month', booked_at)
+-- grain       : hotel_id, channel_id, segment_id, DATE_TRUNC('month', booked_at)
 -- source      : mapping sheet
 
 select
-        date_trunc('month', f.booked_at) as booked_at_month,
-        count(*) as total_bookings
+        f.hotel_id as hotel_id,
+        f.channel_id as channel_id,
+        f.segment_id as segment_id,
+        DATE_TRUNC('month', f.booked_at) as booked_at_month,
+        COUNT(DISTINCT f.reservation_id) as total_bookings
 from {{ ref('fact_reservations') }} as f
-    where f.is_cancelled = 0
-    group by 1
+    where f.status != 'CANCELLED'
+    group by 1, 2, 3, 4
